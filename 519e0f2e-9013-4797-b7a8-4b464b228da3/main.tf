@@ -1,0 +1,4 @@
+module "qerg" {
+  source = "./qerg"
+}
+
