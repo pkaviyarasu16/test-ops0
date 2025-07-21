@@ -1,8 +1,7 @@
-module "s3_bucket_creation" {
-  source = "./s3_bucket_creation"
+provider "aws" {
+  region = var.region
 }
 
-module "docker" {
-  source = "./docker"
+resource "aws_s3_bucket" "bucket" {
+  bucket = "neeteshis7ahero0000-923j2d38"
 }
-
