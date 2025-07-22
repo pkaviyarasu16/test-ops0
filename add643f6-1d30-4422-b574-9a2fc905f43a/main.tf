@@ -3,5 +3,5 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "neeteshis7ahero0000-923j2d38"
+  bucket = "iqnhweirx283n4982x-x123n2kka"
 }
