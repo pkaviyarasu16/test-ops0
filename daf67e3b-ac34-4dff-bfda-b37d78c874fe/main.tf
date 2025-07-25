@@ -1,7 +1,19 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
 provider "aws" {
-  region = var.region
+  region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "rockerskiwiiwiwiiw-tribe-tribal-01"
+  bucket = var.bucket_name
+  tags = {
+    WorkflowName = var.workflow_name
+  }
 }
