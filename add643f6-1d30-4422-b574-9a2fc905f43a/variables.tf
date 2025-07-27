@@ -16,18 +16,6 @@ variable "kubernetes_version" {
   default     = "1.27"
 }
 
-variable "cluster_role_arn" {
-  description = "ARN of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations"
-  type        = string
-  default     = "arn:aws:iam::123456789012:role/eks-cluster-role"
-}
-
-variable "node_role_arn" {
-  description = "ARN of the IAM role that provides permissions for the EKS worker nodes"
-  type        = string
-  default     = "arn:aws:iam::123456789012:role/eks-node-role"
-}
-
 variable "node_group_name" {
   description = "Name of the EKS node group"
   type        = string
@@ -37,7 +25,7 @@ variable "node_group_name" {
 variable "instance_type" {
   description = "EC2 instance type for the EKS worker nodes"
   type        = string
-  default     = "t3.medium"
+  default     = "t3.small"
 }
 
 variable "node_desired_size" {
