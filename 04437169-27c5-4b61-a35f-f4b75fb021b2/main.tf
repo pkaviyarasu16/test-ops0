@@ -3,5 +3,5 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "kavinqnweifnqwebf-kjqbdkw-narm"
+  bucket = var.bucket_name
 }
