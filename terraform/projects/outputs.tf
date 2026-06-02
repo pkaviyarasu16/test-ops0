@@ -1,61 +1,43 @@
-# VPC Outputs
-output "vpc_ids" {
-  description = "Map of VPC names to their IDs"
-  value = {
-    for k, v in aws_vpc.imported : k => v.id
-  }
+#------------------------------------------------------------------------------
+# Outputs
+#------------------------------------------------------------------------------
+
+output "s3_bucket_ids" {
+  description = "Map of imported S3 bucket IDs keyed by logical name"
+  value       = { for k, v in aws_s3_bucket.this : k => v.id }
 }
 
-output "vpc_cidr_blocks" {
-  description = "Map of VPC names to their CIDR blocks"
-  value = {
-    for k, v in aws_vpc.imported : k => v.cidr_block
-  }
+output "s3_bucket_arns" {
+  description = "Map of imported S3 bucket ARNs keyed by logical name"
+  value       = { for k, v in aws_s3_bucket.this : k => v.arn }
 }
 
-# Security Group Outputs
-output "security_group_ids" {
-  description = "Map of security group keys to their IDs"
-  value = {
-    for k, v in aws_security_group.imported : k => v.id
-  }
+output "s3_bucket_domain_names" {
+  description = "Map of imported S3 bucket domain names keyed by logical name"
+  value       = { for k, v in aws_s3_bucket.this : k => v.bucket_domain_name }
 }
 
-output "security_group_names" {
-  description = "Map of security group keys to their names"
-  value = {
-    for k, v in aws_security_group.imported : k => v.name
-  }
+output "s3_bucket_regional_domain_names" {
+  description = "Map of imported S3 bucket regional domain names keyed by logical name"
+  value       = { for k, v in aws_s3_bucket.this : k => v.bucket_regional_domain_name }
 }
 
-# Subnet Outputs
-output "subnet_ids" {
-  description = "Map of subnet keys to their IDs"
-  value = {
-    for k, v in aws_subnet.imported : k => v.id
-  }
+output "s3_logs_bucket_id" {
+  description = "ID of the dedicated S3 server-access log bucket"
+  value       = aws_s3_bucket.logs.id
 }
 
-output "subnet_cidr_blocks" {
-  description = "Map of subnet keys to their CIDR blocks"
-  value = {
-    for k, v in aws_subnet.imported : k => v.cidr_block
-  }
+output "s3_replica_bucket_arn" {
+  description = "ARN of the cross-region replication destination bucket"
+  value       = aws_s3_bucket.replica.arn
 }
 
-output "subnet_availability_zones" {
-  description = "Map of subnet keys to their availability zones"
-  value = {
-    for k, v in aws_subnet.imported : k => v.availability_zone
-  }
+output "s3_kms_key_arn" {
+  description = "ARN of the customer-managed KMS key used for S3 encryption"
+  value       = aws_kms_key.s3.arn
 }
 
-# Summary Output
-output "import_summary" {
-  description = "Summary of imported resources"
-  value = {
-    vpcs            = length(aws_vpc.imported)
-    security_groups = length(aws_security_group.imported)
-    subnets         = length(aws_subnet.imported)
-  }
+output "s3_events_topic_arn" {
+  description = "ARN of the SNS topic receiving S3 object event notifications"
+  value       = aws_sns_topic.s3_events.arn
 }
