@@ -6,7 +6,7 @@ Cost tracking for the S3 bucket and supporting resources provisioned by this pro
 
 **Total estimated monthly cost:** $1.00/mo USD
 **Resources priced:** 5
-**Estimate generated:** 2026-06-02T17:05:44.036Z (from `Repo cost estimate (Infracost on current files)`)
+**Estimate generated:** 2026-06-02T17:14:04.353Z (from `Repo cost estimate (Infracost on current files)`)
 **Source:** Infracost run against current `.tf` files
 
 ### By resource type
@@ -29,7 +29,7 @@ Cost tracking for the S3 bucket and supporting resources provisioned by this pro
 
 ### Cost delta vs previous estimate
 
-| | Previous (2026-06-02T16:52:02.459Z) | Current (2026-06-02T17:05:44.036Z) | Delta |
+| | Previous (2026-06-02T17:05:44.036Z) | Current (2026-06-02T17:14:04.353Z) | Delta |
 | --- | --- | --- | --- |
 | Total monthly cost | $1.00/mo | $1.00/mo | **$0.00/mo** |
 | Resources priced | 5 | 5 | 0 |
@@ -38,7 +38,7 @@ No change vs the previous estimate — the same five resources are priced at the
 
 ## Deployed cost — what's actually running
 
-No successful deployment yet — this section will populate after the first `apply` finishes. The most recent deployment (#3, plan stage) failed with a `terraform init` error, so nothing is billing yet. The Estimated section above reflects the cost the repo would incur once a deployment succeeds.
+No successful deployment yet — this section will populate after the first `apply` finishes. The most recent deployment (#5, deploy stage) failed during apply while importing `aws_s3_bucket.this["roi-vation-ops0-s3"]`, so nothing is billing yet. The Estimated section above reflects the cost the repo would incur once a deployment succeeds.
 
 ## Optimization opportunities
 
