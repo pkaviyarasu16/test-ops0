@@ -30,7 +30,9 @@ bucket:R --> L:replica
 ```
 ## Modules
 
-- `provider.tf` — AWS provider pinned to `~> 5.0`; primary region from `var.aws_region`, `aws.replica` alias from `var.replica_region`.
+- `provider.tf` — AWS provider pinned to `~> 5.0` and the project's `required_version` / `required_providers` (single source of truth); primary region from `var.aws_region`, `aws.replica` alias from `var.replica_region`.
+- `backend.tf` — S3 remote backend (`bucket = roi-vation-ops0-s3`, `key = discovery/terraform.tfstate`, encrypted). No state locking is configured yet — see Troubleshooting.
+- `terraform.tf` — intentionally empty placeholder kept so the file isn't deleted from the repo. All `terraform { ... }` settings live in `provider.tf` and `backend.tf`.
 - `main.tf` — primary bucket, KMS key, public access blocks, logging, lifecycle, SNS notifications, replica bucket, IAM replication role, and replication configuration.
 - `imports.tf` — Terraform 1.5+ `import` blocks that bind the existing AWS bucket to Terraform resource addresses.
 - `variables.tf` — inputs for regions, ops0 tracking, and standard tagging.
@@ -73,8 +75,8 @@ bucket:R --> L:replica
 ## Status summary
 
 - **Compliance** → No policies attached yet. See [EVIDENCE.md](./EVIDENCE.md).
-- **Vulnerabilities** → 6 findings (1 CRITICAL, 1 HIGH, 4 MEDIUM) addressed in this change; next scan will confirm. See [VULNERABILITIES.md](./VULNERABILITIES.md).
-- **Cost** → $0.00/mo estimated from current files (last estimate). See [FINOPS.md](./FINOPS.md).
+- **Vulnerabilities** → 8 findings (0 CRITICAL, 0 HIGH, 1 MEDIUM, 7 LOW) on the last scan. See [VULNERABILITIES.md](./VULNERABILITIES.md).
+- **Cost** → $1.00/mo estimated from current files (KMS key is the only billed line item today). See [FINOPS.md](./FINOPS.md).
 - **Drift** → No drift check yet. See [DRIFT.md](./DRIFT.md).
 
 ## Deploy
@@ -94,7 +96,9 @@ This project is managed via the ops0 platform:
 
 ## Troubleshooting
 
-- **Plan shows encryption change on the imported bucket** — expected on this run: SSE is being upgraded from AES256 to KMS to address CKV_AWS_145.
+- **`Error: Unsupported argument` on `backend.tf` for `use_lockfile`** — native S3 state locking via `use_lockfile = true` requires Terraform `>= 1.10`. This project pins `required_version = ">= 1.5.0"` (which resolves to 1.5.x in the ops0 runner), so the argument is rejected at `terraform init`. Either bump `required_version` to `>= 1.10` and re-add `use_lockfile = true`, or add `dynamodb_table = "<lock-table>"` in `backend.tf` (the classic locking mechanism that works on 1.5+).
+- **`Error: Duplicate required providers configuration`** — Terraform allows only one `required_providers` block per module. `provider.tf` is the canonical home; `terraform.tf` is kept as an empty placeholder. If you add provider requirements, edit `provider.tf` — do NOT redeclare them in `terraform.tf` or `backend.tf`.
+- **Plan shows encryption change on the imported bucket** — expected: SSE is being upgraded from AES256 to KMS to address CKV_AWS_145.
 - **`aws_s3_bucket_notification` fails with `Unable to validate the following destination configurations`** — the SNS topic policy must be in place first; the `depends_on` on `aws_sns_topic_policy.s3_events` handles this, but a fresh deploy can race with eventual consistency — re-run apply.
 - **Replication shows `Failed`** — check that the source bucket has versioning enabled (it does) and that the replication IAM role has `kms:Decrypt` on the source KMS key (granted via `aws_iam_role_policy.replication`).
 - **Cost increase** — KMS requests, the replica bucket's storage and cross-region transfer, and the access log bucket all add cost; the next Infracost run will quantify it in `FINOPS.md`.
