@@ -389,5 +389,11 @@ resource "aws_s3_bucket_replication_configuration" "this" {
     }
   }
 
-  depends_on = [aws_s3_bucket_versioning.this]
+  # Both source AND destination bucket versioning must be in place before
+  # PutBucketReplication will succeed. Without the explicit replica dependency
+  # AWS returns: "Destination bucket must have versioning enabled."
+  depends_on = [
+    aws_s3_bucket_versioning.this,
+    aws_s3_bucket_versioning.replica,
+  ]
 }
