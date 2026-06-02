@@ -1,12 +1,8 @@
-# Global Terraform Configuration
-
-terraform {
-  required_version = ">= 1.5"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
+# Intentionally empty.
+#
+# `required_version` and `required_providers` live in provider.tf as the single
+# source of truth. Terraform only allows one `required_providers` block per
+# module — declaring it here as well caused:
+#   Error: Duplicate required providers configuration
+#
+# The S3 backend is configured in backend.tf.
