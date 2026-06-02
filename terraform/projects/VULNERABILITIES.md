@@ -1,6 +1,6 @@
 # Vulnerabilities — AWS Demo S3 Bucket ROIVATION demo
 
-**Last scan:** 2026-06-02T17:05:44Z (just completed)
+**Last scan:** 2026-06-02T17:14:04Z (just completed)
 **Scanner:** Checkov
 **Targets:** `aws_s3_bucket.this["roi-vation-ops0-s3"]`, `aws_s3_bucket.logs`, `aws_s3_bucket.replica`, `aws_kms_key.s3`
 
@@ -14,7 +14,7 @@ Total findings: **8**
 
 ## Findings by file
 
-Findings are spread across the log bucket, the replica bucket, and the KMS key. The primary bucket (`aws_s3_bucket.this["roi-vation-ops0-s3"]`) is clean in this scan.
+Findings remain concentrated on the log bucket, the replica bucket, and the KMS key. The primary bucket (`aws_s3_bucket.this["roi-vation-ops0-s3"]`) is clean in this scan.
 
 | Check                                            | Severity    | Resource                                       | Description                                                          | Remediation                                                                                                  |
 |--------------------------------------------------|-------------|------------------------------------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
@@ -39,10 +39,10 @@ Cross-region replication on the log bucket (P3) can be deferred until the data c
 
 ## History
 
-| Scan                          | Critical | High | Medium | Low | Total |
-|-------------------------------|----------|------|--------|-----|-------|
-| Latest (2026-06-02T17:05:44Z) | 0        | 0    | 1      | 7   | 8     |
-| Previous (2026-06-02T16:52:02Z) | 0      | 0    | 1      | 7   | 8     |
-| Earlier                       | 0        | 1    | 1      | 4   | 6     |
+| Scan                            | Critical | High | Medium | Low | Total |
+|---------------------------------|----------|------|--------|-----|-------|
+| Latest (2026-06-02T17:14:04Z)   | 0        | 0    | 1      | 7   | 8     |
+| Previous (2026-06-02T17:05:44Z) | 0        | 0    | 1      | 7   | 8     |
+| Earlier (2026-06-02T16:52:02Z)  | 0        | 0    | 1      | 7   | 8     |
 
-Results are stable vs the previous scan — same 8 findings, same severity mix. The High-severity Public Access Block finding from the earlier scan remains cleared. No new regressions and no new fixes landed between the last two scans.
+Results are stable across the last three scans — same 8 findings, same severity mix. The High-severity Public Access Block finding cleared in earlier history remains resolved. No new regressions and no new fixes landed in this scan.
