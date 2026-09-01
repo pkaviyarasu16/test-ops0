@@ -1,18 +1,10 @@
 #------------------------------------------------------------------------------
-# Import blocks for existing AWS resources (Terraform 1.5+ syntax)
+# Import Blocks (Terraform 1.5+)
+#
+# Adopts pre-existing AWS resources into Terraform state.
 #------------------------------------------------------------------------------
 
 import {
-  to = aws_s3_bucket.this["roi-vation-ops0-s3"]
-  id = "roi-vation-ops0-s3"
-}
-
-import {
-  to = aws_s3_bucket_versioning.this["roi-vation-ops0-s3"]
-  id = "roi-vation-ops0-s3"
-}
-
-import {
-  to = aws_s3_bucket_server_side_encryption_configuration.this["roi-vation-ops0-s3"]
-  id = "roi-vation-ops0-s3"
+  to = aws_instance.this["ops0_qa"]
+  id = "i-078ce1ce32d944424"
 }
