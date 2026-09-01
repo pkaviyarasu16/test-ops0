@@ -1,23 +1,19 @@
-# Drift Status — AWS Demo S3 Bucket ROIVATION demo
+# Drift Status — ops0-dev
 
-Will populate after the next drift check runs.
-
-## Status
-
-Never run — no `lastDriftCheck` recorded yet.
+**Status:** Never run — no `lastDriftCheck` recorded yet.
 
 ## Summary
 
-| Action  | Count |
-|---------|-------|
-| add     | —     |
-| change  | —     |
-| destroy | —     |
+| Action | Count |
+|---|---|
+| add | — |
+| change | — |
+| destroy | — |
 
 ## Drifted resources
 
-_None recorded yet._
+No data yet — will populate after the next drift check runs.
 
 ## Suggested next step
 
-Run an initial drift check from the ops0 platform once the first deployment has succeeded.
+Run a drift check from the ops0 dashboard once the initial import has completed.
