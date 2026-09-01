@@ -5,6 +5,7 @@
 resource "aws_instance" "this" {
   for_each = var.ec2_instances
 
+  ami               = each.value.ami
   instance_type     = each.value.instance_type
   availability_zone = each.value.availability_zone
   subnet_id         = each.value.subnet_id
