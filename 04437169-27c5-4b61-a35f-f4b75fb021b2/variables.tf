@@ -9,3 +9,9 @@ variable "bucket_name" {
   type        = string
   default     = "jinininndkwbef-qerferf"
 }
+
+variable "bucket_name_2" {
+  description = "The name of the second S3 bucket"
+  type        = string
+  default     = "jinininndkwbef-qerferf-2"
+}
